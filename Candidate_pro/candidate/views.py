@@ -1,5 +1,6 @@
 from rest_framework import mixins
 from rest_framework import generics
+from rest_framework.permissions import AllowAny, IsAdminUser
 from rest_framework.response import Response
 from .serializers import CandidateSerializer
 from rest_framework.parsers import JSONParser
@@ -17,6 +18,16 @@ class CandidateListView(mixins.ListModelMixin, mixins.CreateModelMixin, generics
 
     def get(self, request):
         return self.list(request)
+
+    def get_permissions(self):
+        """
+            Instantiates and returns the list of permissions that this view requires.
+        """
+        if self.request.method == 'GET':
+            permission_classes = [AllowAny]
+        else:
+            permission_classes = [IsAdminUser]
+        return [permission() for permission in permission_classes]
 
     def get_queryset(self):
         city_name = self.request.query_params.get('city_name', None)
