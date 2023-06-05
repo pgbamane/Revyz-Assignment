@@ -17,5 +17,5 @@ class Candidate(models.Model):
     phone_number = models.CharField(max_length=10)
     email = models.EmailField()
     city_name = models.CharField(max_length=30)
-    tech_skills = MultiSelectField(choices=TECH_CHOICES, max_choices=6, max_length=6)
+    tech_skills = MultiSelectField(choices=TECH_CHOICES, max_choices=6, max_length=50)
     # experience_in_years = models.FloatField(max_length=10)
